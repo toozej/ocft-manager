@@ -1,0 +1,37 @@
+---
+default_language_version: {python: python3}
+minimum_pre_commit_version: "1.15"
+
+repos:
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.88.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_tflint
+      - id: terraform_docs_replace
+        args: ["--sort-inputs-by-required", "--dest=DOCS.md"]
+      - id: terraform_tfsec
+      - id: checkov
+      - id: terrascan
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+        name: Check for valid YAML syntax in repo
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/check_yaml.py
+      - id: detect-private-key
+        name: Check for existence of private key in repo
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/detect_private_key.py
+      - id: trailing-whitespace
+        name: Remove trailing whitespace in YAML,Python,Bash files
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/trailing_whitespace_fixer.py
+        files: \.(py|sh|yaml|yml|tf)$
+      - id: end-of-file-fixer
+        name: Ensure EOF is consistently only a newline
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/end_of_file_fixer.py
+        files: \.(py|sh|yaml|yml|tf)$
+      - id: mixed-line-ending
+        name: Ensure line-ending is consistent
+        description: https://github.com/pre-commit/pre-commit-hooks/blob/master/pre_commit_hooks/mixed_line_ending.py
+        files: \.(py|sh|yaml|yml|tf)$
